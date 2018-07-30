@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
+import { incrementAsync, incrementIfOdd } from './actions/counter';
 
 class App extends Component {
   render() {
@@ -16,8 +17,8 @@ class App extends Component {
           Clicked: {counter} times
           <button onClick={() => dispatch({ type: 'INCREMENT' })}>+</button>
           <button onClick={() => dispatch({ type: 'DECREMENT' })}>-</button>{' '}
-          <button onClick={() => dispatch({ type: 'INCREMENT_IF_ODD' })}>Increment if odd</button>{' '}
-          <button onClick={() => dispatch({ type: 'INCREMENT_ASYNC' })}>Increment async</button>
+          <button onClick={() => dispatch(incrementIfOdd())}>Increment if odd</button>{' '}
+          <button onClick={() => dispatch(incrementAsync())}>Increment async</button>
         </p>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
