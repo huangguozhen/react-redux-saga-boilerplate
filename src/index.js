@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
+import './assets/css/material-react.css';
 
 const store = configureStore();
 
