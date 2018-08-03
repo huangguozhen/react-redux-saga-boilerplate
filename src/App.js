@@ -209,7 +209,10 @@ class App extends Component {
           <div className={classes.container}>
             <div className={classes.inner}>
               <div className={classes.row}>
-                <Threshold data={this.getThreshold()} />
+                <Threshold
+                  group={groups[this.state.menu]}
+                  data={this.getThreshold()}
+                />
                 <DevTable
                   data={devices}
                   period={this.state.period}
