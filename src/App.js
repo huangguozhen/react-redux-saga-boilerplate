@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-// import EzvizLive from './components/EzvizLive';
+import Grid from "@material-ui/core/Grid";
+import Button from '@material-ui/core/Button';
+import EzvizLive from './components/EzvizLive';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Threshold from './components/Threshold';
@@ -38,7 +40,12 @@ const styles = theme => ({
   inner: {
     padding: 15
   },
-  row: {}
+  row: {},
+  button: {
+    borderRadius: 0,
+    minWidth: 'auto',
+    padding: '8px 4px'
+  }
 });
 
 const moment = require('moment');
@@ -67,7 +74,8 @@ class App extends Component {
   state = {
     tab: 'left',
     menu: 0,
-    period: 1
+    period: 1,
+    span: 12
   };
 
   async componentDidMount () {
@@ -155,7 +163,10 @@ class App extends Component {
       const devices = await this.props.dispatch(fetchDev(group['_id']));
       // const { start, end } = this.state;
       if (devices.length > 0) {
-        this.fetchDevData(devices[0].devId, this.state.period);
+        const devId = this.state.selectedDev || devices[0].devId;
+        this.fetchDevData(devId, this.state.period);
+      } else {
+        this.props.dispatch({ type: DEVICE, series: App.defaultProps.series });
       }
     }
   }
@@ -221,8 +232,58 @@ class App extends Component {
             </div>
           </div>
         </div>
-        <div style={{ display: this.state.tab === 'right' ? 'block' : 'none' }} >
-          {/*<EzvizLive />*/}
+        <div
+          style={{
+            display: this.state.tab === 'right' ? 'block' : 'none',
+            height: 'calc(100vh - 140px)' }}
+          >
+          <Grid style={{ paddingLeft: 24 }}>
+            <Button
+              classes={{ root: classes.button }}
+              onClick={() => this.setState({ span: 12 })}
+            >
+              <img
+                style={{ height: 24 }}
+                src={require('./assets/img/grid12.svg')}
+                alt='12'
+              />
+            </Button>
+            <Button
+              classes={{ root: classes.button }}
+              onClick={() => this.setState({ span: 6 })}
+            >
+              <img
+                style={{ height: 24 }}
+                src={require('./assets/img/grid6.svg')}
+                alt='12'
+              />
+            </Button>
+            <Button
+              classes={{ root: classes.button }}
+              onClick={() => this.setState({ span: 4 })}
+            >
+              <img
+                style={{ height: 24 }}
+                src={require('./assets/img/grid4.svg')}
+                alt='12'
+              />
+            </Button>
+            <Button
+              classes={{ root: classes.button }}
+              onClick={() => this.setState({ span: 3 })}
+            >
+              <img
+                style={{ height: 24 }}
+                src={require('./assets/img/grid3.svg')}
+                alt='12'
+              />
+            </Button>
+          </Grid>
+          <Grid container style={{ height: '100%', padding: '0 30px' }}>
+            <Grid item xs={this.state.span} style={{ margin: '0 10px 10px 0' }}>
+              <EzvizLive />
+            </Grid>
+          </Grid>
         </div>
       </div>
     );

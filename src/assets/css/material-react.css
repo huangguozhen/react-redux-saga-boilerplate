@@ -223,3 +223,8 @@ footer ul li a:hover {
         overflow-x: hidden;
     }
 }
+
+#ezuiPlayer {
+  height: 100%;
+  width: 100%;
+}

@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-const styles = {
-  wrapper: {
-    width: '100%'
-  }
-};
-
 class EZUILive extends Component {
   componentDidMount () {
     /* eslint no-undef: 0 */
@@ -21,10 +15,8 @@ class EZUILive extends Component {
   }
 
   render () {
-    const { classes } = this.props;
     return (
       <video
-        className={classes.wrapper}
         id="ezuiPlayer"
         controls
         playsInline
@@ -43,4 +35,4 @@ class EZUILive extends Component {
   }
 }
 
-export default withStyles(styles)(EZUILive);
+export default EZUILive;
