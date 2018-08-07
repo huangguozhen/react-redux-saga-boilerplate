@@ -9,6 +9,10 @@ import MuiInput from '@material-ui/core/Input';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import withStyles from '@material-ui/core/styles/withStyles';
 
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 const styles = theme => ({
   wrapper: {
     width: 260,
@@ -95,6 +99,7 @@ class Threshold extends Component {
   };
 
   state = {
+    alert: false,
     visible: false
   };
 
@@ -106,8 +111,34 @@ class Threshold extends Component {
     this.setState({ visible: false });
   }
 
-  handleSave = () => {
-    this.handleClose();
+  handleSave = async () => {
+    try {
+      const keys = [
+        'airTempMin',
+        'airTempMax',
+        'airHumiMin',
+        'airHumiMax',
+        'solHumiMin',
+        'solHumiMax',
+        'illumMin',
+        'illumMax',
+        'co2Min',
+        'co2Max'
+      ];
+      const values = keys.map(key => this[key].value);
+      const data = {};
+
+      keys.forEach((key, index) => {
+        data[key] = parseInt(values[index], 10);
+      });
+
+      await this.props.update(this.props.group._id, data);
+      this.setState({ alert: true, visible: false });
+    } catch (err) {/**/}
+  }
+
+  handleOK = () => {
+    this.setState({ alert: false });
   }
 
   render () {
@@ -168,6 +199,7 @@ class Threshold extends Component {
                     />
                     <span style={{ padding: '8px 10px 0' }}>-</span>
                     <Input
+                      inputRef={input => this.airTempMax = input}
                       style={{ width: 100 }}
                       placeholder='最大值'
                       defaultValue={group.airTempMax}
@@ -182,12 +214,14 @@ class Threshold extends Component {
                 control={
                   <div style={{ display: 'inline-flex', padding: '0 15px' }}>
                     <Input
+                      inputRef={input => this.airHumiMin = input}
                       style={{ width: 100 }}
                       placeholder='最小值'
                       defaultValue={group.airHumiMin}
                     />
                     <span style={{ padding: '8px 10px 0' }}>-</span>
                     <Input
+                      inputRef={input => this.airHumiMax = input}
                       style={{ width: 100 }}
                       placeholder='最大值'
                       defaultValue={group.airHumiMax}
@@ -202,12 +236,14 @@ class Threshold extends Component {
                 control={
                   <div style={{ display: 'inline-flex', padding: '0 15px' }}>
                     <Input
+                      inputRef={input => this.solHumiMin = input}
                       style={{ width: 100 }}
                       placeholder='最小值'
                       defaultValue={group.solHumiMin}
                     />
                     <span style={{ padding: '8px 10px 0' }}>-</span>
                     <Input
+                      inputRef={input => this.solHumiMax = input}
                       style={{ width: 100 }}
                       placeholder='最大值'
                       defaultValue={group.solHumiMax}
@@ -222,12 +258,14 @@ class Threshold extends Component {
                 control={
                   <div style={{ display: 'inline-flex', padding: '0 15px' }}>
                     <Input
+                      inputRef={input => this.illumMin = input}
                       style={{ width: 100 }}
                       placeholder='最小值'
                       defaultValue={group.illumMin}
                     />
                     <span style={{ padding: '8px 10px 0' }}>-</span>
                     <Input
+                      inputRef={input => this.illumMax = input}
                       style={{ width: 100 }}
                       placeholder='最大值'
                       defaultValue={group.illumMax}
@@ -242,12 +280,14 @@ class Threshold extends Component {
                 control={
                   <div style={{ display: 'inline-flex', padding: '0 15px' }}>
                     <Input
+                      inputRef={input => this.co2Min = input}
                       style={{ width: 100 }}
                       placeholder='最小值'
                       defaultValue={group.co2Min}
                     />
                     <span style={{ padding: '8px 10px 0' }}>-</span>
                     <Input
+                      inputRef={input => this.co2Max = input}
                       style={{ width: 100 }}
                       placeholder='最大值'
                       defaultValue={group.co2Max}
@@ -273,6 +313,22 @@ class Threshold extends Component {
             </div>
           </div>
         </Modal>
+        <Dialog
+          open={this.state.alert}
+          onClose={this.setState.bind(this, { alert: false })}
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
+        >
+          <DialogTitle id='alert-dialog-title'>{'设置阈值成功'}</DialogTitle>
+          <DialogActions>
+            <Button
+              onClick={this.handleOK}
+              color='secondary'
+              variant='outlined'
+              autoFocus
+            >确定</Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

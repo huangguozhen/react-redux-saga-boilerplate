@@ -11,7 +11,10 @@ import DevTable from './components/DevTable';
 import CtrlPanel from './components/CtrlPanel';
 import ChartPanel from './components/Chart';
 
-import { fetchAll } from './actions/group';
+import {
+  fetchAll,
+  update as updateG,
+} from './actions/group';
 import {
   DEVICE,
   fetchAll as fetchDev,
@@ -187,6 +190,10 @@ class App extends Component {
     } catch (err) {/**/}
   }
 
+  handleSetThreshold = (gId, data) => {
+    return this.props.dispatch(updateG(gId, data));
+  }
+
   render() {
     const { classes, groups, devices, controller } = this.props;
     return (
@@ -210,6 +217,7 @@ class App extends Component {
             <div className={classes.inner}>
               <div className={classes.row}>
                 <Threshold
+                  update={this.handleSetThreshold}
                   group={groups[this.state.menu]}
                   data={this.getThreshold()}
                 />
