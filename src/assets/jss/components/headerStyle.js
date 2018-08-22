@@ -8,8 +8,10 @@ const headerStyle = theme => ({
   },
   title: {
     lineHeight: 1,
+    paddingLeft: 24,
     fontSize: 22,
     color: '#fff',
+    textAlign: 'left',
     marginBottom: 10
   },
   button: {

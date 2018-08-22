@@ -290,8 +290,17 @@ class App extends Component {
               />
             </Button>
           </Grid>
-          <Grid container style={{ height: '100%', padding: '0 30px' }}>
+          <Grid container style={{ height: 'calc(100% - 30px)', padding: '0 30px' }}>
             <Grid item xs={this.state.span} style={{ margin: '0 10px 10px 0' }}>
+              <div
+                style={{
+                  fontSize: 18,
+                  color: '#fff',
+                  backgroundColor: '#000',
+                  padding: '12px 16px 0'
+                }}>
+                大棚2号
+              </div>
               <EzvizLive />
             </Grid>
           </Grid>
