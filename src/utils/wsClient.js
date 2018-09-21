@@ -25,7 +25,7 @@ export default class wsClient {
     }
 
     this.connected = false;
-    this.socket = new WebSocket('ws://ydsaas.demo.intoyun.com/v1/websocket')
+    this.socket = new WebSocket('ws://iagrsaas.demo.intoyun.com/v1/websocket')
     this.socket.onopen = scope(this._on_socket_open, this);
     this.socket.onclose = scope(this._on_socket_close, this);
     this.socket.onmessage = scope(this._on_socket_message, this);

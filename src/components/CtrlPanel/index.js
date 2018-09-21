@@ -47,11 +47,11 @@ class CtrlPanel extends Component {
             classes={{
               label: classes.label
             }}
-            label='通风开关'
+            label='浇水开关'
             control={(
               <CustomizedSwitch
-                value='2'
-                checked={!!data['2']}
+                value='1'
+                checked={!!data['1']}
                 onChange={onChange}
               />
             )}
@@ -61,11 +61,11 @@ class CtrlPanel extends Component {
             classes={{
               label: classes.label
             }}
-            label='补光开关'
+            label='通风开关'
             control={(
               <CustomizedSwitch
-                value='4'
-                checked={!!data['4']}
+                value='2'
+                checked={!!data['2']}
                 onChange={onChange}
               />
             )}
@@ -89,11 +89,11 @@ class CtrlPanel extends Component {
             classes={{
               label: classes.label
             }}
-            label='浇灌开关'
+            label='补光开关'
             control={(
               <CustomizedSwitch
-                value='1'
-                checked={!!data['1']}
+                value='4'
+                checked={!!data['4']}
                 onChange={onChange}
               />
             )}

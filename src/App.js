@@ -150,12 +150,12 @@ class App extends Component {
       desc: 'CO₂浓度(ppm)'
     });
 
-    threshold.push({
-      img: require('./assets/img/threshold6.png'),
-      min: 15,
-      max: 100,
-      desc: '电池电量(%)'
-    });
+    // threshold.push({
+    //   img: require('./assets/img/threshold6.png'),
+    //   min: 15,
+    //   max: 100,
+    //   desc: '电池电量(%)'
+    // });
 
     return threshold;
   }
