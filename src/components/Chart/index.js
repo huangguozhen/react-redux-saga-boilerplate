@@ -54,6 +54,19 @@ class Chart extends Component {
     fetchDevData(selectedDev, period);
   }
 
+  componentDidMount () {
+    const { fetchDevData, selectedDev, period } = this.props;
+    this.handler = setInterval(() => {
+      fetchDevData(selectedDev, period);
+    }, 3e5);
+  }
+
+  componentWillUnmount () {
+    if (this.handle) {
+      clearInterval(this.handler);
+    }
+  }
+
   render () {
     const { classes, series, period } = this.props;
     const highchartOpts = { ...options, series };
@@ -80,6 +93,13 @@ class Chart extends Component {
               color={period === 30 ? 'primary' : 'default'}
               classes={{ root: classes.button }}
             >最近30天</Button>
+            <Button
+              onClick={this.refresh.bind(this, period)}
+              variant='contained'
+              color='default'
+              classes={{ root: classes.button }}
+              style={{ marginLeft: 10, marginRight: 0 }}
+            >刷新</Button>
           </div>
         </div>
         <HighchartsReact
